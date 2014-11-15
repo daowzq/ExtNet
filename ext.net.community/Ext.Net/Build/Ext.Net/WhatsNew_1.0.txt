@@ -1,0 +1,861 @@
+- XRender: Creating controls during DirectEvent/DirectMethod
+	- creating controls during DirectEvent
+        // automatic mode rendering   
+		Panel panel1 = new Panel();
+		this.Form.Controls.Add(panel);
+		panel1.Render(); 
+   
+		//RenderTo mode
+		//render to the form1 element
+		// adding to the existing server side control is not required
+
+		Panel panel1 = new Panel();
+		panel1.Render(RenderMode.RenderTo, "form1"); 
+   
+		// AddTo mode
+		// Add to the Items collection of the control
+		//adding to the existing server side control is not required
+		// PanelWithAccordion can be dynamic control as well and not presented in the current request
+
+        Panel panel1 = new Panel();
+		this.Form.Controls.Add(panel);
+		panel1.Render(RenderMode.AddTo, "PanelWithAccordion"); 
+   
+	-  You can create controls outside Page. For example, in the WebService or Http Handler
+
+       [WebMethod]
+        public DirectResponse BuildWindow()
+        {
+            Window win = new Window
+            {
+                ID = "WebWindow1",
+                Title = "Window from WebService",
+                Height = 185,
+                Width = 350,
+                Html = "Hello World from WebService"
+            };
+
+            win.ContentControls.Add(new LiteralControl("testing!"));
+            
+            return new DirectResponse(win.ToScript());
+        }
+   
+	- Ext.Net control can create ASP.NET controls. In this case ASP.NET will be rendered also. For example, you can create Ext.NET panel with user control
+   
+       protected void Button1_Click(object sender, DirectEventArgs e)
+       {
+        var win = new Window { 
+            Title = "Customer : " + DateTime.Now.ToLongTimeString(),
+            Height = 185,
+            Width = 350,
+            Padding = 5
+        };
+        
+        win.ContentControls.Add(this.LoadControl("MyUserControl.ascx"));
+
+        win.Render(this.Form);
+      }
+    
+	- Ext.Net Panel (Window and etc) can works as UpdatePanel. Just call UpdatedContent
+	  Panel1.UpdateContent();
+    
+	- Any Ext.Net control can be updated
+      Window1.Update();
+
+------- End XRender Section -------------------
+
+- ASP.NET MVC (http://code.google.com/p/extnet-mvc/): 
+   - new PartialViewResult to support partial rendering by Ext.Net controls
+     See the following post for additional details (http://forums.ext.net/showthread.php?6282)
+	 
+   - RestResult: support REST under ASP.NET MVC
+
+- New layout: HBoxLayout
+  A layout that arranges items horizontally across a Container.
+  
+- New layout: VBoxLayout
+  A layout that arranges items vertically down a Container.
+  
+- New Control: ButtonGroup
+  Container for a group of buttons.
+  
+- New Control: ListView
+  ListView is a fast and light-weight implentation of a Grid like view with the following characteristics:
+	- resizable columns
+	- selectable
+	- column widths are initially proportioned by percentage based on the container width and number of columns
+	- uses templates to render the data in any required format
+	- no horizontal scrolling
+	- no editing
+	
+- New Control: MultiCombo
+  Combobox with multiselect ability
+  
+- New Control: FlashComponent
+  
+- New Control: GroupTabPanel
+
+- New Control: ClickRepeater
+  A wrapper class which can be applied to any element. Fires a "click" event while the mouse is pressed. The interval between firings may be specified in the config but defaults to 20 milliseconds. Optionally, a CSS class may be applied to the element during the time it is pressed.
+
+- New Control: SpinnerField
+
+- New Control: ColumnTree
+
+- New Control: DropDownField
+  ComboBox with ability to customize dropdown list (can be any Ext.Net control as list)
+  
+- New Control: SelectBox
+  Makes a ComboBox more closely mimic an HTML SELECT. 
+  
+- New Control: TreeGrid
+  
+  
+- New view (grid): BufferView
+  A custom GridView which renders rows on an as-needed basis. 
+  
+- New view (grid): LockingGridView
+  Ability to lock columns (exclude its from scrolling)
+	
+- New grid's column: BooleanColumn
+  A Column definition class which renders boolean data fields.
+  
+- New grid's column: DateColumn
+  A Column definition class which renders a passed date according to the default locale, or a configured format. 
+  
+- New grid's column: NumberColumn
+  A Column definition class which renders a numeric data field according to a format string. 
+  
+- New grid's column: TemplateColumn
+  A Column definition class which renders a value by processing a Record's data using a configured XTemplate. 
+
+- New grid's plugin: RowEditor
+  Plugin that adds the ability to rapidly edit full rows in a grid. A validation mode may be enabled which uses AnchorTips to notify the user of all validation errors at once.   
+
+- New ButtonGroup's plugin: BottomTitle  
+  
+- New paging toolbar's plugin: ProgressBarPager
+  Plugin for displaying a progressbar inside of a paging toolbar instead of plain text   
+  
+- New TabPanel's plugin: TabScrollerMenu
+  Plugin for adding a tab scroller menu to tabs.
+
+- New grid's plugin: EditableGrid
+  Show editors for all cells in a GridPanel   
+  
+- New grid's plugin: HybridSummary (remote summary)  
+  Adds capability to specify the summary data for the group via json
+  
+- New DateField and DatePicker's plugin: MonthPicker
+  Allows to choose month and year only
+  
+- New helper class: DomHelper
+  The DomHelper class provides a layer of abstraction from DOM and transparently supports creating elements via DOM or using HTML fragments. It also has the ability to create HTML fragment templates from your DOM building code.
+  
+- New helper class: CSS
+  Utility class for manipulating CSS rules  
+  
+- New helper class: Cookies
+  Utility class for managing and interacting with cookies.  
+  
+- Drag&Drop support for Ext.Net controls
+
+- New Element class: Encapsulates a DOM element, adding simple DOM manipulation facilities, normalizing for browser differences.
+
+- New Layer class: An extended Element object that supports a shadow and shim, constrain to viewport and automatic maintaining of shadow/shim positions.
+
+- New functionality: DesignMode
+  Design mode can be deactivated in the web.config (requires VS restart after change the value)
+  <extnet designMode="disabled" />
+  Allowed values: Enabled, Disabled, ActionsOnly
+  
+- Menu:
+   - Menu is real container now
+   
+   - New Property: EnableScrolling
+     Whenever a menu gets so long that the items won’t fit the viewable area, it provides the user with an easy UI to scroll the menu.
+	 
+   - New Property: Floating
+     By default, a Menu configured as floating:true will be rendered as an Ext.Layer (an absolutely positioned, floating Component with zindex=15000). If configured as floating:false, the Menu may be used as child item of another Container instead of a free-floating Layer.
+	 
+   - New Property: OffsetX
+     X offset in pixels by which to change the default Menu popup position after aligning according to the defaultAlign configuration. 
+	 
+   - New Property: OffsetY
+     Y offset in pixels by which to change the default Menu popup position after aligning according to the defaultAlign configuration. 
+
+   
+- Toolbar:
+   - New Property: EnableOverflow
+     A menu for items that don’t fit the visible toolbar area will be created by default and can be disabled with the configuration option
+
+- Button:
+   - New Property:  ArrowAlign
+	 The side of the Button box to render the arrow if the button has an associated menu
+	
+   - New Property:  IconAlign
+     The side of the Button box to render the icon.
+	 
+   - New Property:  OverflowText
+     If used in a Toolbar, the text to be used if this item is shown in the overflow menu.
+	 
+   - New Property:  Scale
+     The size of the Button.
+	 
+    - New Property: QTipCfg
+	  QuickTip config
+	 
+- Component:
+    - New Event: AfterRender
+	  Fires after the component rendering is finished.
+	  The afterrender event is fired after this Component has been rendered, been postprocesed by any afterRender method defined for the Component, and, if stateful, after state has been restored.
+	  
+	- Change format of the AutoEl property. Now it is DomObject
+	
+	- Added various layout's properties: Anchor, AnchorHorizontal, AnchorVertical, ColumnWidth, IsFormField, LabelSeparator, LabelStyle, LabelCls, RowHeight
+
+	- New Property: Element
+	  Return Element of the control
+	
+- Container:
+    - New Property: ForceLayout
+      If true the container will force a layout initially even if hidden or collapsed. This option is useful for forcing forms to render in collapsed or hidden containers.
+	
+    - New Property: Layout
+	
+	- New Property: LayoutConfig
+      	
+- Panel:
+    - New Event: IconChange
+	  Fires after the Panel icon class has been set or changed.
+	  
+    - New Property: BodyCssClass
+	  Additional css class selector to be applied to the body element
+	  Also added new functions - AddBodyCssClass and RemoveBodyCssClass
+	  
+	- New Property: Unstyled
+	  Overrides the baseCls setting to baseCls = 'x-plain' which renders the panel unstyled except for required attributes for Ext layouts to function (e.g. overflow:hidden).
+	 
+	- New Property: PreventBodyReset
+	  When set to true, an extra css class 'x-panel-normal' will be added to the panel's element, effectively applying css styles suggested by the W3C (see http://www.w3.org/TR/CSS21/sample.html) to the Panel's body element (not the header, footer, etc.).
+	  
+	- New Property: Padding
+	  A shortcut for setting a padding style on the body element. The value can either be a number to be applied to all sides, or a normal css string describing padding.
+	  
+	- New Property: PaddingSummary
+	  A shortcut for setting a padding style on the body element. The value can either be a number to be applied to all sides, or a normal css string describing padding.
+	  
+	- New propetty: BodyElement
+	  Return body's Element
+	  
+- LoadConfig (AutoLoad):
+    - New Property: TriggerControl
+	  Allow to specify control (component, id or function) which initiates trigger event
+	    <AutoLoad TriggerControl="AspButton1" TriggerEvent="click" ... 
+		<AutoLoad TriggerControl="#{Panel1}" TriggerEvent="expand" ... 
+		<AutoLoad TriggerControl="function(){return #{Tab3};}" TriggerEvent="activate" ... 
+		<AutoLoad TriggerControl="={fnName}" TriggerEvent="activate" ... 
+       
+- RecordField:
+    - New Property: CustomSortType
+	  A function which converts a Field's value to a comparable value in order to ensure correct sort ordering.
+	  
+	- New Property: ServerMapping
+	  Allows to serialize child property without parent property serialization, like "MyBigObject.SerializationRequiredProperty"
+	  
+	- New Property: AllowBlank
+	  Used for validating a record, defaults to true. An empty value here will cause Ext.data.Record.isValid to evaluate to false.
+	
+- Column (grid):
+    - New Property: Editable	
+	  Optional. Defaults to true, enabling the configured editor. Set to false to initially disable editing on this column. 
+	  
+	- New Property: EmptyGroupText
+	  Optional. If the grid is being rendered by an Ext.grid.GroupingView, this option may be used to specify the text to display when there is an empty group value. Defaults to the Ext.grid.GroupingView.emptyGroupText.
+   
+    - New Property: GroupName
+	  Optional. If the grid is being rendered by an Ext.grid.GroupingView, this option may be used to specify the text with which to prefix the group field value in the group header line. See also groupRenderer and Ext.grid.GroupingView.showGroupName.
+	  
+	- New predefined renderers: 
+		HtmlEncode
+        Convert certain characters (&, <, >, and ') to their HTML character equivalents for literal display in web pages.
+		
+		Nl2br
+		Converts newline characters to the HTML tag &lt;br/>
+		
+        Number
+		Formats the number according to the format string.
+		examples (123456.789):
+		0 - (123456) show only digits, no precision
+		0.00 - (123456.78) show only digits, 2 precision
+		0.0000 - (123456.7890) show only digits, 4 precision
+		0,000 - (123,456) show comma and digits, no precision
+		0,000.00 - (123,456.78) show comma and digits, 2 precision
+		0,0.00 - (123,456.78) shortcut method, show comma and digits, 2 precision
+		To reverse the grouping (,) and decimal (.) for international numbers, add /i to the end. For example: 0.000,00/i
+
+        NumberRenderer
+		Returns a number rendering function that can be reused to apply a number format multiple times efficiently
+		
+		Plural
+		Selectively do a plural form of a word based on a numeric value. For example, in a template, {commentCount:plural("Comment")} would result in "1 Comment" if commentCount was 1 or would be "x Comments" if the value is 0 or greater than 1.
+		
+        Round
+		Rounds the passed number to the required decimal precision.
+		
+	- New Property: PrepareCommands
+	  Preedit set of commands before rendering
+	  
+	- New Property: PrepareGroupCommands
+	  Preedit set of group commands before rendering
+	  
+	- New Property: EditorOptions
+	  Various options for cell editor
+	  
+	- New Property: Locked
+    
+- ColumnModel (grid):
+    - New Property: DefaultSortable
+	  Default sortable of columns which have no sortable specified (defaults to false). This property shall preferably be configured through the defaults config property.
+	  
+	- New Property: DefaultWidth
+	  The width of columns which have no width specified (defaults to 100). This property shall preferably be configured through the defaults config property.
+	
+	- New Property: Defaults
+	  Object literal which will be used to apply Ext.grid.Column configuration options to all columns. Configuration options specified with individual column configs will supersede these defaults.
+	  
+	- New Method: MoveColumn
+	  Moves a column from one position to another.
+	  
+	- New Method: SetLocked
+	  Sets if a column is locked.
+	  
+- RowSelectionModel:
+    - New Method: SelectById
+	  Select row(s) by id
+	  
+- CheckboxSelectionModel:
+    - New Property: CheckOnly
+	  true if rows can only be selected by clicking on the checkbox column (defaults to false).
+	  
+	- New Property: AllowDeselect
+	   False if need disable deselection
+	  
+- PropertyGridParameter:
+    - New Property: DisplayName
+	  Name which will be displayed in the property grid
+	  
+- GridPanel:
+    - New Property: ColumnLines
+	  true to add css for column separation lines. Default is false.
+	  
+	- New Property: DDGroup
+	  The DD group this GridPanel belongs to. Defaults to 'GridDD' if not specified.
+	  
+	- New Property: DDText
+	  Configures the text in the drag proxy. Defaults to: '{0} selected row{1}' {0} is replaced with the number of selected rows.
+	  
+	- New Property: ForceValidation
+	  True to force validation even if the value is unmodified (defaults to false)
+	  
+	- New Method: StartEditing
+	  Starts editing the specified for the specified row/column
+	  
+	- New Method: StopEditing
+	  Stops any active editing
+	  
+	- New Method: UpdateCell
+	  Update cell content
+	  
+	- New Event:  FilterUpdate
+	  Fires when the grid's filter is updated.
+	  
+- GridView:
+    - New Property: HeadersDisabled
+	  True to disable the grid column headers (defaults to false). Use the ColumnModel menuDisabled config to disable the menu for individual columns. While this config is true the following will be disabled:
+        - clicking on header to sort
+        - the trigger to reveal the menu.
+		
+	- New Property: SelectedRowClass
+	  The CSS class applied to a selected row (defaults to "x-grid3-row-selected").
+      An example overriding the default styling:
+       .x-grid3-row-selected {background-color: yellow;}
+      Note that this only controls the row, and will not do anything for the text inside it. To style inner facets (like text) use something like:
+       .x-grid3-row-selected .x-grid3-cell-inner {
+          color: #FFCC00;
+	    }
+		
+	- New Property: SortAscClass
+	  The CSS class applied to a header when it is asc sorted.
+	  
+	- New Property: SortDescClass
+	  The CSS class applied to a header when it is desc sorted.
+	  
+	- New Property: MarkDirty
+	  True to add red triangle for modified cells
+	  
+	- New Method: FocusCell
+	  Focuses the specified cell.
+	  
+	- New Method: FocusRow
+	  Focuses the specified row.
+	  
+	- New Method: Refresh
+	  Refreshs the grid UI
+	  
+	- New Method: ScrollToTop
+	  Scrolls the grid to the top
+	  
+	- New Property: HeaderGroupRows
+	  Ability to group header's cells
+	  
+- GroupingView:
+    - New Method: CollapseAllGroups
+	  Collapses all grouped rows.
+	  
+	- New Method: ExpandAllGroups
+	  Expands all grouped rows.
+	  
+	- New Method: ToggleAllGroups
+	  Toggles all groups
+	  
+	- New Method: ToggleGroup
+      Toggles the specified group
+	  
+- DataView:
+    - New Property: SelectedRows
+	- New Property: SelectedRow
+	- New Property: SelectedIndex
+	- New Property: SelectedRecordID
+	
+	- New Method: UpdateSelection
+	  Update selection from SelectedRows		
+		
+	- New Method: ClearSelections
+	  Clears all selections.
+	
+	- New Method: Deselect
+	  Deselects a node
+	   
+	- New Method: Refresh
+	  Refreshes the view by reloading the data from the store and re-rendering the template.
+        
+	- New Method:  RefreshNode
+	  Refreshes an individual node's data from the store.
+	  
+	- New Method: Select
+	  Selects a set of nodes.
+	  
+	- New Method: SelectRange
+	  Selects a range of nodes. All nodes between start and end are selected.
+	  
+- ComponentMenuItem:
+    - New Property: ComponentElemen
+	  The element of component which will be used during menu item rendering
+	  
+- Store:
+    - New functionality: Store can be defined as inner control (in the GridPanel, DataView, Combo and etc) instead using StoreID
+	
+	- New Property: AutoDecode
+	  If true then submitted data will be html decoded
+	  
+	- New Property: AutoSave
+	  Defaults to true causing the store to automatically save records to the server when a record is modified (ie: becomes 'dirty'). Specify false to manually call save to send all modifiedRecords to the server.
+	  
+	- New Property: Restful
+	  Defaults to false. Set to true to have the Store and the set Proxy operate in a RESTful manner.
+	  
+	- New Property: SaveAllFields
+	  Save ALL fields of a modified record -- not just those that changed.
+	 
+	- New Method: UpdateRecordField
+	  Update record field value
+	  
+	- New Method: AddRecord
+	  Add Record to the Store and fires the add event.
+	  
+	- New Method: InsertRecord
+	  Inserts Record into the Store at the given index and fires the add event.
+	  
+	- New Method: RemoveRecord
+	  Remove record by id or index
+	  
+	- New Method: ClearGrouping
+	  Clears any existing grouping and refreshes the data using the default sort.
+	  
+	- New Method: GroupBy
+	  Groups the data by the specified field.
+	  
+	- New Method: UpdateRecordId
+	  Update record's id
+	  
+- HttpProxy	  :
+    - New Property: RestAPI
+	  Specific urls to call on REST action methods "read", "create", "update" and "destroy".
+	  
+- TabPanel: 
+    - Any tab can has own menu (New property TabMenu for tab) which triggered from tab header
+	- New Event: BeforeTabMenuShow
+    - New Property: DefaultTabMenu
+
+- RowExpander:
+    - New Property: EnableCaching
+	  false Build expander content for each expanding
+	
+    - New Property: ExpandOnEnter	
+	  true to toggle selected row(s) between expanded/collapsed when the enter
+
+	- New Property: ExpandOnDblClick
+	  true to toggle a row between expanded/collapsed when double clicked
+	  
+	- New Property: LazyRender
+	  false Render content with row rendering, otherwise before expand
+	  
+	- New Property: SingleExpand
+	  true Only one row can be expanded at one time
+	  
+	- New Property: Component
+	  Component which rendered inside row expander. Please note that in this case SingleExpand set to true automatically
+	  
+	- New proeprty: RecreateComponent
+	  Recreate component on each row expand
+	  
+	- New Method: ToggleRow
+	  Toggle (expand/collapse) row
+	  
+	- New Method: ExpandAll
+	  Expand all rows
+	  
+	- New Method: CollapseAll
+	  Collapse all rows
+	  
+	- New Method: ExpandRow
+	  Expand row
+	  
+	- New Method: CollapseRow
+	  Collapse row
+
+- TreeNode:
+	- New Property: Editable
+	  False to not allow this node to be edited by an TreeEditor (defaults to true)
+	  
+	- New Property: Hidden
+	  True to render hidden. (Defaults to false).
+	  
+- AsyncTreeNode:
+    - New Property: Loader
+	  A TreeLoader to be used by this node (defaults to the loader defined on the tree)
+	  
+- QuickTips:
+    - New Method: Register
+	  Configures a new quick tip instance and assigns it to a target element.
+	  
+	- New Method: Unregister
+	  Removes any registered quick tip from the target element and destroys it.
+	  
+	- New Property: QtipConfig
+	  Tooltip config
+	  
+- Tooltip:
+    - Can use Content
+	
+	- New Property: AnchorOffset
+      A numeric pixel value used to offset the default position of the anchor arrow (defaults to 0). When the anchor position is on the top or bottom of the tooltip, anchorOffset will be used as a horizontal offset. Likewise, when the anchor position is on the left or right side, anchorOffset will be used as a vertical offset.
+	  
+	- New Property: AnchorToTarget
+ 	  True to anchor the tooltip to the target element, false to anchor it relative to the mouse coordinates (defaults to true). When anchorToTarget is true, use defaultAlign to control tooltip alignment to the target element. When anchorToTarget is false, use anchorPosition instead to control alignment.
+	  
+	- New Property: Delegate
+	  Optional. A DomQuery selector which allows selection of individual elements within the target element to trigger showing and hiding the ToolTip as the mouse moves within the target.
+      When specified, the child element of the target which caused a show event is placed into the triggerElement property before the ToolTip is shown.
+      This may be useful when a Component has regular, repeating elements in it, each of which need a Tooltip which contains information specific to that element.
+	  
+- TreePanel:
+	- New functionality: adding remote mode (remote confirmations for rename, remove, insert/append, drag&drop actions)
+	
+	- New Property: Editors
+	  TreePanel has multiple editors and can activate editor depends from node attribute
+	  
+	- New Property: SelectionModel
+	  A tree selection model to use with this TreePanel
+	  
+	- New Property: ActiveEditor
+	  Active editor ID
+	  
+	- New Property: Sorter
+	  Provides sorting of nodes in a TreePanel.
+	  
+	- New Property: SelectionSubmitConfig
+	  Config for manage automatic selection submiting
+	  
+	- New Property: AllowLeafDrop
+	  Allows drop nodes to the leaf node
+	  
+	- New server side event: Submit
+	  Handles nodes submit
+	
+	- New Method: AppendChild
+      Insert node as the last child node of this node.
+
+    - New Method: Bubble
+	  Bubbles up the tree from this node, calling the specified function with each node. The scope (this) of function call will be the scope provided or the current node. The arguments to the function will be the args provided or the current node. If the function returns false at any point, the bubble is stopped.	
+	  
+	- New Method: Cascade
+       Cascades down the tree from this node, calling the specified function with each node. The scope (this) of function call will be the scope provided or the current node. The arguments to the function will be the args provided or the current node. If the function returns false at any point, the cascade is stopped on that branch.
+
+    - New Method: CollapseNode
+	  Collapse this node.
+	  
+	- New Method: CollapseChildNodes
+	  Collapse all child nodes
+	  
+	- New Method: DisableNode
+	  Disables this node
+	  
+	- New Method: EachChild
+	  Interates the child nodes of this node, calling the specified function with each node. The scope (this) of function call will be the scope provided or the current node. The arguments to the function will be the args provided or the current node. If the function returns false at any point, the iteration stops.
+	  
+	- New Method: EnableNode  
+	  Enables this node
+	  
+	- New Method: EnsureNodeVisible
+	  Ensures all parent nodes are expanded, and if necessary, scrolls the node into view.
+	  
+	- New Method: ExpandNode
+	  Expand this node.
+	  
+	- New Method: ExpandChildNodes
+	  Expand all child nodes
+	  
+	- New Method: InsertBeforeChild
+	  Inserts the first node before the second node in this nodes childNodes collection.
+	  
+	- New Method: NodeOn
+	  Appends an event handler to the node
+	  
+	- New Method: RemoveNode
+	  Removes this node from its parent
+	  
+	- New Method: RemoveChildren
+	  Removes all children nodes
+	  
+	- New Method: RemoveChildNode
+	  Removes a child node from this node.
+	  
+	- New Method: ReplaceChildNode
+	  Replaces one child node in this node with another.
+	  
+	- New Method: SelectNode
+	  Triggers selection of this node
+	  
+	- New Method: SetNodeId
+	  Changes the id of this node.
+	  
+	- New Method: SetNodeText
+	  Sets the text for this node
+	  
+	- New Method: SortChildrenNodes
+	  Sorts this nodes children using the supplied sort function
+	  
+	- New Method: ToggleNode
+	  Toggles expanded/collapsed state of the node
+	  
+	- New Method: UnselectNode
+	  Triggers deselection of this node
+	
+	- New Method: ReloadAsyncNode
+	  Trigger a reload for this node
+	  
+	- New Method: CollapseAll
+	  Collapse all nodes
+	  
+	- New Method: ExpandAll
+	  Expand all nodes
+	  
+	- New Method: ExpandPath
+	  Expands a specified path in this TreePanel. A path can be retrieved from a node with Ext.data.Node.getPath
+	  
+	- New Method: SelectPath
+	  Selects the node in this tree at the specified path. A path can be retrieved from a node with Ext.data.Node.getPath
+	  
+	- New Method: SetRootNode
+	  Sets the root node for this tree. If the TreePanel has already rendered a root node, the previous root node (and all of its descendants) are destroyed before the new root node is rendered.
+	  
+	- New Method: AddNodeClass
+	  Adds one or more CSS classes to the node's UI element. Duplicate classes are automatically filtered out.
+	  
+	- New Method: HideNode
+	  Hides this node.
+	  
+	- New Method: RemoveNodeClass
+	  Removes one or more CSS classes from the node's UI element.
+	  
+	- New Method: ShowNode
+	  Shows this node
+	  
+	- New Method: ToggleCheck
+	  Sets the checked status of the tree node to the passed value, or, if no value was passed, toggles the checked status. If the node was rendered with no checkbox, this has no effect.
+	
+- Editor: 
+	- New Property: AllowBlur
+	  False to complete the editing process if in edit mode when the field is blurred. Defaults to false.
+	  
+	- New Property: CancelOnBlur
+	  True to cancel the edit when the blur event is fired (defaults to false)
+	  
+	- New Property: Offsets
+	  The offsets to use when aligning. Defaults to [0, 0].
+	  
+	- New Property: ZIndex
+	  Editor z-index
+	  
+- CheckboxGroup/RadioGroup:
+    - Checkbox and Radio has Tag property now. In Check/Radio group the CheckedTags property is added
+	
+- ComboBox:
+    - New Method: ClearValue
+	  Clears any text/value currently set in the field
+	  
+	- New Method: Collapse
+	  Hides the dropdown list if it is currently expanded. Fires the collapse event on completion.
+	  
+	- New Method: DoQuery
+	  Execute a query to filter the dropdown list. Fires the beforequery event prior to performing the query allowing the query action to be canceled if needed.
+    
+	- New Method: Expand
+	  Expands the dropdown list if it is currently hidden. Fires the expand event on completion.
+	  
+	- New Method: Select
+      Select an item in the dropdown list by its numeric index in the list. This function does NOT cause the select event to fire. The store must be loaded and the list expanded for this function to work, otherwise use setValue.
+     
+	- New Method: SelectByValue
+	  Select an item in the dropdown list by its data value. This function does NOT cause the select event to fire. The store must be loaded and the list expanded for this function to work, otherwise use setValue.
+
+- ResourceManager:
+    - New Property: Debug
+	  Set debug console: Ext or FireBug lite
+	  
+	- New Method: AddDirectMethodControl
+	  Now DirectMethod can be defined in any control. Use this method to register control with direct methods.
+	  
+- Field:
+    - New Property: PreventMark
+      True to disable marking the field invalid	
+	  
+	- New functionality: now FieldLabel property doesn't require FormLayout
+	
+	- New Property: NoteEncode
+	  True to encode note text
+	  
+	- New Method: ShowNote
+	  Show note
+	  
+	- New Method: HideNote
+	  Hide note
+	  
+- FormPanel:
+    - New Property: RenderFormTag
+	
+	- New Method: StartMonitoring
+	  Starts monitoring of the valid state of this form. Usually this is done by passing the config option "monitorValid"
+	  
+	- New Method: StopMonitoring
+	  Stops monitoring of the valid state of this form
+	  
+	- New Method: ClearInvalid
+	  Clears all invalid messages in this form.
+	  
+	- New Method: MarkInvalid
+	  Mark fields in this form invalid in bulk.
+	  
+	- New Method: Reset
+	  Resets this form.
+	  
+	- New Method: SetValues
+	  Set values for fields in this form in bulk.
+	  
+	- New Method: ApplyToFields
+	  Calls Ext.apply for all fields in this form with the passed object.
+	  
+	- New Method: ApplyIfToFields
+	  Calls Ext.applyIf for all fields in this form with the passed object.
+	  
+	- New Method: CallFieldMethod
+	  Calls required method for all fields in this form with the passed args.
+	  
+- MultiField:
+    - New functionality: now inner fields support anchoring
+	
+- TriggerField:
+    - New icons for triggers.
+	
+	- Ability to change icons for standard triggers (DateField, Combo, TimeField)
+	
+	- All trigger fields (TriggerField, ComboBox, TimeField, DateField and etc) support multi triggers
+	
+	- New Property: Editable
+	  False to disable inputing but trigger still active (ReadOnly=true hides trigger)
+	  
+- CheckColumn:
+    - New Property: SingleSelect
+	  Only one cell in the column can be checked
+	  
+- CommandMenu (CommandColumn):
+    - New Property: Shared
+	  Shared menu between all rows (otherwise individual instance will be created)
+	  
+- GroupingSummary:
+    - New Property: Calculations
+	  Defined custom calculation functions
+	  
+	- New Method: ToggleSummaries
+	  Toggle the display of the summary row on/off
+	  
+	- New Method: RefreshSummary
+	   Note: requires that all (or the first) record in the group share the same group value.
+	   
+	- New Method: ShowSummaryMsg
+	  Show a message in the summary row.
+	  
+- PagingToolbar:
+    - New Property: HideRefresh
+	  Hide refresh button
+	  
+- DirectEvent:
+    - New Property: After
+      The .After handler is called immediately after the DirectEvent is fired and 
+      before the response is returned from the server. 
+      
+      See more, http://forums.ext.net/showthread.php?6600
+	  Hide refresh button
+	  
+- Image:
+	- New Event: Complete
+	  Fires after the image is loaded (fires if MonitorComplete="true").
+	  
+	- New Property: AllowPan
+	  true to allow scroll the image by mouse dragging
+	  
+	- New Property: LazyLoad
+	  true to load image after rendering only (useful if require to defer image loading if image inside inactive tab)
+	  
+	- New Property: MonitorComplete
+	  true to monitor complete state and fire Complete event
+	  
+	- New Property: MonitorPoll
+	  The milliseconds to poll complete state, ignored if MonitorComplete is not true (defaults to 200)
+	  
+	- New Property: Resizable
+	  true to allow resize the image
+	  
+	- New Property: ResizeConfig
+	
+- DirectEvent Confirmation:
+    - New property: Cancel
+	  Javascript handler, Fires if user press No in the confirmation dialog
+
+- Slider: multi thumbs support
+
+- Field : Added new .RawValue property which returns the raw un-parsed form field value.
+
+- TextFieldBase : Added new .RawText property which gets/sets the RawValue as a string. 

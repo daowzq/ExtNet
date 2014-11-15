@@ -1,0 +1,46 @@
+﻿.x-tab-strip-withmenu {
+    position : relative;
+} 
+
+.x-tab-strip-withmenu .x-tab-left {
+    padding-right : 19px;
+}
+
+.x-tab-strip-closable.x-tab-strip-withmenu .x-tab-strip-inner {
+    padding-right : 12px;
+}
+
+.x-tab-strip .x-tab-strip-withmenu a.x-tab-strip-menu {
+    opacity : .6;
+    -moz-opacity : .6;
+    background-repeat : no-repeat;
+    display : block;
+	width : 11px;
+    height : 11px;
+    position : absolute;
+    top : 3px;
+    right : 3px;
+    cursor : pointer;
+    z-index : 2;
+}
+
+.x-tab-strip .x-tab-strip-closable a.x-tab-strip-menu {
+    right : 15px;
+}
+
+.x-tab-strip .x-tab-strip-active a.x-tab-strip-menu {
+    opacity : .8;
+    -moz-opacity : .8;
+}
+.x-tab-strip .x-tab-strip-withmenu a.x-tab-strip-menu : hover{
+    opacity : 1;
+    -moz-opacity : 1;
+} 
+
+.x-tab-strip .x-tab-strip-withmenu a.x-tab-strip-menu {
+	background-image : url(../images/tab-menu.gif);
+}
+
+.x-tab-strip .x-tab-strip-withmenu a.x-tab-strip-menu : hover{
+	background-image : url(../images/tab-menu.gif);
+}

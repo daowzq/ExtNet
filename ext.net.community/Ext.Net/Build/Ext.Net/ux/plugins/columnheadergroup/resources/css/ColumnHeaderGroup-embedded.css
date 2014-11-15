@@ -1,0 +1,12 @@
+/*!
+ * Ext JS Library 3.2.1
+ * Copyright(c) 2006-2010 Ext JS, Inc.
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
+td.ux-grid-hd-group-cell {
+    background: url("<%=WebResource("Ext.Net.Build.Ext.Net.ux.plugins.columnheadergroup.resources.images.grid3-hrow.gif")%>") repeat-x bottom;
+}
+td.ux-grid-hd-group-cell .x-grid3-hd-checker{
+    background : none;
+}

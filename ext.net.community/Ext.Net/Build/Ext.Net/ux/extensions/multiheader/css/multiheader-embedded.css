@@ -1,0 +1,11 @@
+.x-grid3-add-row{background:#f9f9f9 url("<%=WebResource("Ext.Net.Build.Ext.Net.ux.extensions.multiheader.images.grid3-hrow.gif")%>") repeat-x left top;cursor:default;zoom:1;padding:1px 0 0 0; height:24px !important;}
+.x-grid3-sadd-row{background:#f9f9f9 url("<%=WebResource("Ext.Net.Build.Ext.Net.ux.extensions.multiheader.images.grid3-hrow.gif")%>") repeat-x 0 bottom;}
+.x-grid3-add{padding:0px;}
+.ext-ie .x-grid3-add{padding:1px 0px;}
+.ext-ie td .x-grid3-add .x-form-text{top:0px;}
+.ext-ie td .x-grid3-add .x-form-trigger{top:-1px;}
+.ext-ie8 td .x-grid3-add .x-form-trigger{top:0px;}
+.x-grid3-add-row .x-grid3-hd {-moz-user-select:text;}
+.x-grid3 .x-grid3-add-row .x-btn TABLE, .x-grid3 .x-grid3-add-row TABLE.x-btn {table-layout:auto !important;}
+.x-grid3 .x-grid3-add-row .x-btn td {border-left:none !important;border-right:none !important;}
+.ext-webkit .x-grid3-add-row .x-form-text {padding-bottom:0px;padding-top:2px;}

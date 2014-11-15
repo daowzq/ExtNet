@@ -1,0 +1,47 @@
+﻿.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-bc {
+	background-image: url(../images/group-bt.gif);
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .xtb-text {
+	color: #3E6AAA;
+	padding: 0;
+	padding-bottom:2px;
+}
+
+.ext-ie6 .x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .xtb-text {
+	padding-bottom:0px;
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer,
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .x-panel-btns,
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .x-panel-btns td.x-toolbar-cell {
+	padding: 0;
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .x-panel-btns-right .x-panel-fbar {
+	float: none;
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .x-panel-btns .x-toolbar-left table {
+	margin:	0 auto;
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .x-panel-btns.x-panel-btns-right .x-clear {
+	font: 0 sans-serif;
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-footer .x-panel-btns .x-toolbar-left {
+	text-align: center;
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-btn-group-tc {
+	vertical-align: top;
+}
+
+.x-btn-group.x-btn-group-ribbonstyle .x-panel-btns TD.x-toolbar-cell{
+	padding:0px;
+}
+
+.x-toolbar-right-row .x-btn-group-ribbonstyle .x-toolbar-left table{
+    width:100%;
+}

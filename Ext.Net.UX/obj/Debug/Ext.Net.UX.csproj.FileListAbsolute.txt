@@ -1,0 +1,12 @@
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Ext.Net.UX.dll
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Ext.Net.UX.pdb
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Ext.Net.dll
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Ext.Net.Utilities.dll
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Newtonsoft.Json.dll
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Ext.Net.pdb
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Ext.Net.xml
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Newtonsoft.Json.xml
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\bin\Debug\Ext.Net.Utilities.pdb
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\obj\Debug\ResolveAssemblyReference.cache
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\obj\Debug\Ext.Net.UX.dll
+D:\BIANCHENG\ext.net.community\Ext.Net.UX\obj\Debug\Ext.Net.UX.pdb

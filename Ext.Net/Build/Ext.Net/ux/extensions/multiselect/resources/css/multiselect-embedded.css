@@ -1,0 +1,40 @@
+/*
+ * Ext JS Library 2.2
+ * Copyright(c) 2006-2008, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://extjs.com/license
+ */
+
+.ux-mselect{
+    overflow:auto;
+    background:white;
+    position:relative;
+    zoom:1;
+    overflow:auto;	
+}
+legend.x-multiselect-legend{
+    margin-left: 7px;
+}
+.ext-ie .x-fieldset legend.x-multiselect-legend{
+    margin-bottom: 0px;
+}
+.ux-mselect-item{
+    font:normal 12px tahoma, arial, helvetica, sans-serif;
+    padding:2px;
+    border:1px solid #fff;
+    white-space: nowrap;
+    cursor:pointer;
+}
+.ux-mselect-selected{
+	border:1px dotted #a3bae9 !important;
+    background:#DFE8F6;
+    cursor:pointer;
+}
+
+.x-view-drag-insert-above { 
+    border-top:1px dotted #3366cc; 
+} 
+.x-view-drag-insert-below { 
+    border-bottom:1px dotted #3366cc; 
+} 
